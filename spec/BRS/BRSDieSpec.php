@@ -8,8 +8,18 @@ use Prophecy\Argument;
 
 class BRSDieSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    function let()
     {
-        $this->shouldHaveType(BRSDie::class);
+        $this->beConstructedWith(8);
+    }
+
+    function it_has_a_valid_number_of_faces()
+    {
+        $this->faces()->shouldReturn(8);
+    }
+
+    function it_throws_an_invalid_number_of_faces_error()
+    {
+
     }
 }
