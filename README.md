@@ -22,6 +22,13 @@ Requisites:
 ```shell
 docker-compose up -d
 ```
+
+  3. Add writing permissions to the content by the creator
+   ```shell
+   sudo setfacl -R -m u:`whoami`:rmX ./
+   
+   sudo setfacl -dR -m u:`whoami`:rmX ./
+   ```
   3. Install dependencies:
   
 ```shell
