@@ -3,7 +3,7 @@
 namespace spec\BRS;
 
 use BRS\Aspect;
-use BRS\BRSDie;
+use BRS\RolledDie;
 use BRS\Feature;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -11,9 +11,9 @@ use Prophecy\Argument;
 class FeatureSpec extends ObjectBehavior
 {
 
-    function let(BRSDie $bd8, Aspect $aspect)
+    function let(Aspect $aspect)
     {
-        $this->beConstructedWith('Conan', $bd8, $aspect);
+        $this->beConstructedWith('Conan', 8, $aspect);
     }
 
     function it_has_a_name()
@@ -21,9 +21,9 @@ class FeatureSpec extends ObjectBehavior
         $this->name()->shouldReturn('Conan');
     }
 
-    function it_has_a_die(BRSDie $bd8)
+    function it_has_a_die_size()
     {
-        $this->bDie()->shouldReturn($bd8);
+        $this->size()->shouldReturn(8);
     }
 
     function it_has_an_aspect(Aspect $aspect)
@@ -53,12 +53,22 @@ class FeatureSpec extends ObjectBehavior
         $this->isActive()->shouldReturn(false);
     }
 
-    public function it_can_be_activated(BRSDie $bd8, Aspect $aspect)
+    public function it_can_be_activated(Aspect $aspect)
     {
-        $this->beConstructedWith('Conan', $bd8, $aspect, false);
+        $this->beConstructedWith('Conan', 8, $aspect, false);
 
         $this->activate();
 
         $this->isActive()->shouldReturn(true);
+    }
+
+    public function it_rolls_a_die_and_gives_results()
+    {
+        $this->rollDie()->shouldReturnAnInstanceOf(RolledDie::class);
+    }
+
+    public function it_rolls_a_die_and_gives_the_feature_s_aspect()
+    {
+        $this->rollDie()->shouldReturnAnInstanceOf(RolledDie::class);
     }
 }

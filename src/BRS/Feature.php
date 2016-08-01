@@ -10,12 +10,12 @@ class Feature
     private $name;
 
     /**
-     * @var BRSDie
+     * @var integer
      */
-    private $bDie;
+    private $size;
 
     /**
-     * @var Aspect
+     * @var string
      */
     private $aspect;
 
@@ -36,14 +36,14 @@ class Feature
 
     public function __construct(
         $name,
-        BRSDie $bDie,
-        Aspect $aspect,
+        $size,
+        $aspect,
         $active = true,
         $legendary = false,
         $devastated = false
     ) {
         $this->name = $name;
-        $this->bDie = $bDie;
+        $this->size = $size;
         $this->aspect = $aspect;
         $this->active = $active;
         $this->legendary = $legendary;
@@ -59,15 +59,15 @@ class Feature
     }
 
     /**
-     * @return BRSDie
+     * @return integer
      */
-    public function bDie()
+    public function size()
     {
-        return $this->bDie;
+        return $this->size;
     }
 
     /**
-     * @return Aspect
+     * @return string
      */
     public function aspect()
     {
@@ -116,5 +116,13 @@ class Feature
         $this->active = true;
 
         return $this;
+    }
+
+    /**
+     * @return RolledDie
+     */
+    public function rollDie()
+    {
+        return new RolledDie($this->size, $this->aspect);
     }
 }
