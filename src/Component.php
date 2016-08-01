@@ -14,10 +14,15 @@ class Component
      */
     private $features = array();
 
-    public function __construct($name, Feature $feature1)
+    /**
+     * Component constructor.
+     * @param string $name
+     * @param Feature[] $features
+     */
+    public function __construct($name, array $features)
     {
         $this->name = $name;
-        $this->features[] = $feature1;
+        $this->features = $features;
     }
 
     /**
@@ -40,7 +45,7 @@ class Component
      * @param Feature $newFeature
      * @return $this
      */
-    public function add(Feature $newFeature)
+    public function addFeature(Feature $newFeature)
     {
         $this->features[] = $newFeature;
 

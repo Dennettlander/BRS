@@ -30,10 +30,23 @@ class ComponentSpec extends ObjectBehavior
     {
         $this->beConstructedWith('Firebolt staff', [$feature1, $feature2, $feature3, $feature4]);
         $this->features()->shouldCountBetween(1, 4);
-        $this->features()->shouldHaveCount(1);
-
         $this->features()->shouldHaveCount(4);
     }
+
+    function it_has_between_1_and_4_featuresII(Feature $feature1)
+    {
+        $this->beConstructedWith('Firebolt staff', [$feature1]);
+        $this->features()->shouldCountBetween(1, 4);
+        $this->features()->shouldHaveCount(1);
+    }
+
+    function it_throws_an_error_with_5_features_or_more(Feature $feature1, Feature $feature2, Feature $feature3, Feature
+    $feature4, Feature $feature5, Feature $feature6)
+    {
+        $this->beConstructedWith('Firebolt staff', [$feature1, $feature2, $feature3, $feature4, $feature5]);
+        $this->features()->shouldThrow('\InvalidArgumentException')->duringInstantiation();*****************
+    }
+
 
     function it_can_adds_a_new_feature()
     {
@@ -41,7 +54,7 @@ class ComponentSpec extends ObjectBehavior
 
         $newFeature = new Feature('Companion', 8, 'aspect');
 
-        $this->add($newFeature)->shouldReturn($this);
+        $this->addFeature($newFeature)->shouldReturn($this);
 
         $this->features()->shouldHaveCount(2);
     }
