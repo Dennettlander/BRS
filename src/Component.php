@@ -86,16 +86,28 @@ class Component
         return 'That feature doesn\' exist';
     }
 
-    public function destroyComponent($name)
+    public function devastateComponent($name)
+    {
+        $devastatedFeature =new Feature('Devastated', 0, '', false, false, true);
+        $devastatedComponent = new Component('Devastated', [$devastatedFeature]);
+
+        $devastatedComponent->addFeature($devastatedFeature);
+        $devastatedComponent->addFeature($devastatedFeature);
+        $devastatedComponent->addFeature($devastatedFeature);
+
+        return $devastatedComponent;
+    }
+
+    /*public function destroyComponent($name)
     {
         if ($this->name === $name){
             $this->name = null;
 
             foreach($this->features as $feature){
-                unset($feature);**********************//TODO
+                unset($feature);
             }
 
             return (count($this->features));
         }
-    }
+    }*/
 }
