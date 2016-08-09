@@ -16,44 +16,44 @@ class FeatureSpec extends ObjectBehavior
         $this->beConstructedWith('Conan', 8, $aspect);
     }
 
-    function it_has_a_name()
+    function it_checks_if_it_has_a_name()
     {
         $this->name()->shouldReturn('Conan');
     }
 
-    function it_has_a_die_size()
+    function it_checks_if_it_has_a_die_size()
     {
         $this->size()->shouldReturn(8);
     }
 
-    function it_has_an_aspect(Aspect $aspect)
+    function it_checks_if_it_has_an_aspect(Aspect $aspect)
     {
         $this->aspect()->shouldReturn($aspect);
     }
 
-    function it_can_be_active()
+    function it_checks_if_it_is_active()
     {
         $this->isActive()->shouldReturn(true);
     }
 
-    function it_can_be_legendary()
+    function it_checks_if_it_is_legendary()
     {
         $this->isLegendary()->shouldReturn(false);
     }
 
-    function it_can_be_devastated()
+    function it_checks_if_it_has_been_devastated()
     {
         $this->isDevastated()->shouldReturn(false);
     }
 
-    public function it_can_be_deactivated()
+    public function it_checks_if_it_has_been_deactivated()
     {
         $this->deactivate();
 
         $this->isActive()->shouldReturn(false);
     }
 
-    public function it_can_be_activated(Aspect $aspect)
+    public function it_checks_if_it_has_been_activated(Aspect $aspect)
     {
         $this->beConstructedWith('Conan', 8, $aspect, false);
 

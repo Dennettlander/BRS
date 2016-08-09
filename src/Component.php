@@ -1,6 +1,7 @@
 <?php
 
 use BRS\Feature;
+use PhpSpec\Exception;
 
 class Component
 {
@@ -15,14 +16,26 @@ class Component
     private $features = array();
 
     /**
+     * @var bool
+     */
+    private $devastated = false;
+
+    /**
      * Component constructor.
      * @param string $name
      * @param Feature[] $features
      */
     public function __construct($name, array $features)
     {
+        if (count($features) < 1) {
+            throw new InvalidArgumentException('Number of features must be 1, at least');
+        }
+
         $this->name = $name;
-        $this->features = $features;
+
+        foreach ($features as $feature) {
+            $this->addFeature($feature);
+        }
     }
 
     /**
@@ -34,11 +47,11 @@ class Component
     }
 
     /**
-     * @return array
+     * @return Feature[]
      */
     public function features()
     {
-        return $this->features;
+        return array_values($this->features);
     }
 
     /**
@@ -47,8 +60,61 @@ class Component
      */
     public function addFeature(Feature $newFeature)
     {
-        $this->features[] = $newFeature;
+        if (count($this->features) > 3) {
+            throw new InvalidArgumentException('Number of features will exceed 4');
+        }
+
+        $this->features[$newFeature->name()] = $newFeature;
 
         return $this;
     }
+
+    public function removeFeature($name)
+    {
+        if (count($this->features) == 1) {
+            throw new InvalidArgumentException('Number of features in a component must be 1, at least');
+        }
+
+        if(isset($this->features[$name])) {
+            unset($this->features[$name]);
+        }
+
+        return $this;
+    }
+
+    public function getFeature($name)
+    {
+        if (isset($this->features[$name])){
+            return $this->features[$name];
+        }
+
+        return 'That feature doesn\' exist';
+    }
+
+    public function isDevastated()
+    {
+        return $this->devastated;
+    }
+
+    public function devastateComponent()
+    {
+        $this->devastated = true;
+
+        foreach($this->features as $feature) {
+            $feature->devastate();
+        }
+    }
+
+    /*public function destroyComponent($name)
+    {
+        if ($this->name === $name){
+            $this->name = null;
+
+            foreach($this->features as $feature){
+                unset($feature);
+            }
+
+            return (count($this->features));
+        }
+    }*/
 }
