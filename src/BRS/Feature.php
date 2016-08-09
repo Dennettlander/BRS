@@ -101,6 +101,15 @@ class Feature
     /**
      * @return $this
      */
+    public function devastate()
+    {
+        $this->devastated = true;
+
+        return $this;
+    }
+    /**
+     * @return $this
+     */
     public function deactivate()
     {
         $this->active = false;

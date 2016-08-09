@@ -16,6 +16,11 @@ class Component
     private $features = array();
 
     /**
+     * @var bool
+     */
+    private $devastated = false;
+
+    /**
      * Component constructor.
      * @param string $name
      * @param Feature[] $features
@@ -86,16 +91,18 @@ class Component
         return 'That feature doesn\' exist';
     }
 
-    public function devastateComponent($name)
+    public function isDevastated()
     {
-        $devastatedFeature =new Feature('Devastated', 0, '', false, false, true);
-        $devastatedComponent = new Component('Devastated', [$devastatedFeature]);
+        return $this->devastated;
+    }
 
-        $devastatedComponent->addFeature($devastatedFeature);
-        $devastatedComponent->addFeature($devastatedFeature);
-        $devastatedComponent->addFeature($devastatedFeature);
+    public function devastateComponent()
+    {
+        $this->devastated = true;
 
-        return $devastatedComponent;
+        foreach($this->features as $feature) {
+            $feature->devastate();
+        }
     }
 
     /*public function destroyComponent($name)

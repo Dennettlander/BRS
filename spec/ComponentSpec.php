@@ -86,19 +86,19 @@ class ComponentSpec extends ObjectBehavior
 
     function it_can_devastate_itself(Feature $feature1, Feature $feature2)
     {
-        $this->beConstructedWith('Firebolt Staff', [$feature1, $feature2, ]);
-        $this->devastateComponent('Firebolt Staff' )->shouldReturnANewInstanceof(Component::class);
+        $this->beConstructedWith('Firebolt Staff', [$feature1, $feature2]);
+        $feature1->devastate()->shouldBeCalled();
+        $feature2->devastate()->shouldBeCalled();
 
+        $this->devastateComponent();
+
+        $this->isDevastated()->shouldReturn(true);
     }
 
-
-    /*function it_can_destroy_itself(Feature $feature1, Feature $feature2, Feature $feature3)
+    function it_ckecks_if_it_has_been_devastated(Feature $feature1, Feature $feature2)
     {
-        $feature1->name()->willReturn('Rubí demoníaco');
-        $feature2->name()->willReturn('Sortilegios protectores');
-        $feature3->name()->willReturn('Hechizos malignos');
+        $this->beConstructedWith('Firebolt Staff', [$feature1, $feature2]);
 
-        $this->beConstructedWith('Firebolt Staff', [$feature1, $feature2, $feature3]);
-        $this->destroyComponent('Firebolt Staff')->shouldReturn(0);
-    }*/
+        $this->isDevastated()->shouldReturn(false);
+    }
 }
